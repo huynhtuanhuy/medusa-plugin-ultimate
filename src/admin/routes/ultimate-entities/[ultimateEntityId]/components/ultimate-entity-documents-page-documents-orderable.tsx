@@ -3,7 +3,7 @@ import { orderBy } from "lodash";
 import { ReactSortable, Sortable, Store } from "react-sortablejs";
 
 import { ExclamationCircle, Spinner } from "@medusajs/icons";
-import { Button, CodeBlock, Text, usePrompt, useToast } from "@medusajs/ui";
+import { Button, CodeBlock, Text, usePrompt, toast } from "@medusajs/ui";
 
 
 import { UltimateEntity } from "../../../../../types/ultimate-entity";
@@ -34,8 +34,6 @@ const UltimateEntityDocumentsPageDocumentsOrderable = ({
 }: UltimateEntityDocumentsPageDocumentsOrderableProps) => {
 
     const prompt = usePrompt();
-
-    const { toast } = useToast();
 
     const { areDocumentsBeingReordered, setAreDocumentsBeingReordered } = useUltimateEntityDocumentsPage();
 
@@ -99,16 +97,12 @@ const UltimateEntityDocumentsPageDocumentsOrderable = ({
         try {
             const result = await updateUltimateEntityDocumentOrderingPositions(entity.id, documentId, newPosition);
 
-            toast({
-                variant: "success",
-                title: "Document Position Updated!",
+            toast.success("Document Position Updated!", {
                 description: "If changes don't appear refresh the page."
             })
         } catch (err: any) {
             console.log("[medusa-plugin-ultimate](onDocumentDraggingEnd):", err);
-            toast({
-                variant: "error",
-                title: "Failed to update document position!",
+            toast.error("Failed to update document position!", {
                 description: "Check the console to know more or Try again."
             });
         } finally {
@@ -163,16 +157,12 @@ const UltimateEntityDocumentsPageDocumentsOrderable = ({
 
             }
 
-            toast({
-                variant: "success",
-                title: "Entity Documents Ordering Reseted!",
+            toast.success("Entity Documents Ordering Reseted!", {
                 description: "If changes don't appear refresh the page."
             })
         } catch (err: any) {
             console.log("[medusa-plugin-ultimate](resetOrdering):", err);
-            toast({
-                variant: "error",
-                title: "Failed to reset ordering!",
+            toast.error("Failed to reset ordering!", {
                 description: "Check the console to know more or Try again."
             })
         } finally {

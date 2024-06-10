@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { Button, useToast } from "@medusajs/ui";
+import { Button, toast } from "@medusajs/ui";
 import { ArrowDownTray } from "@medusajs/icons";
 
 import { useUltimateEntityDocumentsPage } from "../../../../contexts/ultimate-entity-documents-page";
@@ -17,8 +17,6 @@ interface UltimateEntityDocumentsPageDownloadDataButtonProps {
 }
 
 const UltimateEntityDocumentsPageDownloadDataButton = ({ ultimateEntity }: UltimateEntityDocumentsPageDownloadDataButtonProps) => {
-
-    const { toast } = useToast();
 
     const { documents, isLoading, error } = useUltimateEntityDocumentsPage();
 
@@ -42,16 +40,12 @@ const UltimateEntityDocumentsPageDownloadDataButton = ({ ultimateEntity }: Ultim
             a.setAttribute('download', `ultimate*entity-${ultimateEntity.id}-documents.csv`);
             a.click()
 
-            toast({
-                variant: "success",
-                title: "Documents have been downloaded.",
+            toast.success("Documents have been downloaded.", {
                 description: "Check your download tab."
             })
         } catch (err: any) {
             console.log("[medusa-plugin-ultimate](UltimateEntityDocumentsPageDownloadDataButton-handleButtonClick):", err);
-            toast({
-                variant: "error",
-                title: "Failed to Download Documents.",
+            toast.error("Failed to Download Documents.", {
                 description: "Check the console to know more or Try again."
             })
         } finally {
