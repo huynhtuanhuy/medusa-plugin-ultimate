@@ -1,4 +1,4 @@
-import { Button, Drawer, Heading, useToast } from "@medusajs/ui";
+import { Button, Drawer, Heading, toast } from "@medusajs/ui";
 import { FormEvent, ChangeEvent, useState } from "react";
 
 import { UltimateEntity } from "../../../types/ultimate-entity";
@@ -44,8 +44,6 @@ const UltimateEntityDocumentCreationDrawer = ({
     updated_at: undefined,
     ...defaultValues,
   };
-
-  const { toast } = useToast();
 
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [isSubmitLoading, setIsSubmitLoading] = useState<boolean>(false);
@@ -98,9 +96,7 @@ const UltimateEntityDocumentCreationDrawer = ({
 
       setIsDrawerOpen(false);
     } catch (error) {
-      toast({
-        variant: "success",
-        title: "Document created.",
+      toast.success("Document created.", {
         description: "Your document have been created with success!",
       });
     } finally {

@@ -11,7 +11,7 @@ import {
   Trash,
 } from "@medusajs/icons";
 import {
-  useToast,
+  toast,
   Toast,
   Container,
   Badge,
@@ -66,8 +66,6 @@ const UltimateEntityDocumentCard = ({
   const prompt = usePrompt();
   const navigate = useNavigate();
 
-  const { toast } = useToast();
-
   const [isBeingEdited, setIsBeingEdited] = useState<boolean>(false);
   const [isBeingDeleted, setIsBeingDeleted] = useState<boolean>(false);
   const [haveBeenDeleted, setHaveBeenDeleted] = useState<boolean>(false);
@@ -118,9 +116,7 @@ const UltimateEntityDocumentCard = ({
         }
       );
 
-      toast({
-        variant: "success",
-        title: "Document duplicated.",
+      toast.success("Document duplicated.", {
         description: "You'll be redirected to your document page.",
       });
 
@@ -128,9 +124,7 @@ const UltimateEntityDocumentCard = ({
         getPagePathname.entityDocument(entity.id, duplicatedDocument.id)
       );
     } catch (err: any) {
-      toast({
-        variant: "error",
-        title: "Document duplication failed.",
+      toast.error("Document duplication failed.", {
         description: "Something went wrong, check console and try again.",
       });
 
@@ -165,9 +159,7 @@ const UltimateEntityDocumentCard = ({
         });
       }
     } catch (error) {
-      toast({
-        variant: "error",
-        title: "Failed to delete document.",
+      toast.error("Failed to delete document.", {
         description: "Something went wrong, check console and try again.",
       });
       setHaveBeenDeleted(false);

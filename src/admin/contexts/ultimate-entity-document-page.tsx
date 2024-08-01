@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { usePrompt, useToast } from "@medusajs/ui";
+import { usePrompt, toast } from "@medusajs/ui";
 
 import { useNavigate } from "react-router-dom";
 import { createContext, useEffect, useContext, useState } from "react";
@@ -70,8 +70,6 @@ export const UltimateEntityDocumentPageProvider = ({
 }: UltimateEntityDocumentPageProviderProps) => {
   const prompt = usePrompt();
   const navigate = useNavigate();
-
-  const { toast } = useToast();
 
   const [haveChangesBeenMade, setHaveChangesBeenMade] =
     useState<boolean>(false);
@@ -183,10 +181,8 @@ export const UltimateEntityDocumentPageProvider = ({
         }
       );
 
-      toast({
-        title: "Updated Completed!",
+      toast.success("Updated Completed!", {
         description: "Your document have been updated.",
-        variant: "success",
       });
 
       // TODO: recheck to see which one we should keep
@@ -195,11 +191,9 @@ export const UltimateEntityDocumentPageProvider = ({
       setHaveChangesBeenMade(false);
     } catch (error) {
       try {
-        toast({
-          title: "Failed to update!",
+        toast.error("Failed to update!", {
           description:
             "Something went wrong, try again or open console to know more.",
-          variant: "error",
         });
         // notify.error("Update failed.", JSON.stringify(error.response.data));
       } catch (error) {
@@ -241,10 +235,8 @@ export const UltimateEntityDocumentPageProvider = ({
           return oldData;
         });
 
-        toast({
-          title: "Document have been Deleted!",
+        toast.success("Document have been Deleted!", {
           description: "You are being redirected now.",
-          variant: "success",
         });
 
         navigate(getPagePathname.entityDocuments(entity.id));
@@ -252,11 +244,9 @@ export const UltimateEntityDocumentPageProvider = ({
         setHaveBeenDeleted(true);
       }
     } catch (error) {
-      toast({
-        title: "Failed to Delete document.",
+      toast.error("Failed to Delete document.", {
         description:
           "Something went wrong, try again or open console to know more.",
-        variant: "error",
       });
       setHaveBeenDeleted(false);
     } finally {
